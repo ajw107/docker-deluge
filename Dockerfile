@@ -9,6 +9,7 @@ ARG BUILD_DATE
 ARG VERSION
 LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 
+ENV CONFIG="/config"
 #make life easy for yourself
 ENV TERM=xterm-color
 RUN echo $'#!/bin/bash\nls -alF --color=auto --group-directories-first --time-style=+"%H:%M %d/%m/%Y" --block-size="\'1" $@' > /usr/bin/ll
@@ -66,4 +67,4 @@ COPY root/ /
 # ports and volumes
 EXPOSE 8112 58846 58946 58946/udp
 #VOLUME /config /downloads
-VOLUME /config /mnt
+VOLUME "${CONFIG}" /mnt
