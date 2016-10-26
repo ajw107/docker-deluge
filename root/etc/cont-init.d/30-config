@@ -2,6 +2,6 @@
 
 # permissions
 chown -R abc:abc \
-	/config
+	"${CONFIG}"
 chown -R abc:abc \
 	/mnt
