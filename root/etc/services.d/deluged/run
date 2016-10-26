@@ -2,6 +2,6 @@
 
 umask 022
 
-exec \
-	s6-setuidgid abc /usr/bin/deluged -c "${CONFIG}" \
-	-d --loglevel=info -l "${CONFIG}/deluged.log"
+cmd="s6-setuidgid abc /usr/bin/deluged -c ${CONFIG} -d --loglevel=info -l ${CONFIG}/deluged.log"
+echo "Executing: [$cmd]"
+exec $cmd
