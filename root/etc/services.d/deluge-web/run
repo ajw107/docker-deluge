@@ -2,6 +2,6 @@
 
 umask 022
 
-exec \
-	s6-setuidgid abc /usr/bin/deluge-web \
-	-c "${CONFIG}" --loglevel=info
+cmd="s6-setuidgid abc /usr/bin/deluge-web -c ${CONFIG} --loglevel=info"
+echo "Executing: [$cmd]"
+exec $cmd
