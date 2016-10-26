@@ -1,14 +1,17 @@
-![https://linuxserver.io](https://www.linuxserver.io/wp-content/uploads/2015/06/linuxserver_medium.png)
+[linuxserverurl]: https://linuxserver.io
+[forumurl]: https://forum.linuxserver.io
+[ircurl]: https://www.linuxserver.io/irc/
+[podcasturl]: https://www.linuxserver.io/podcast/
 
-The [LinuxServer.io](https://linuxserver.io) team brings you another container release featuring easy user mapping and community support. Find us for support at:
-* [forum.linuxserver.io](https://forum.linuxserver.io)
-* [IRC](https://www.linuxserver.io/index.php/irc/) on freenode at `#linuxserver.io`
-* [Podcast](https://www.linuxserver.io/index.php/category/podcast/) covers everything to do with getting the most from your Linux Server plus a focus on all things Docker and containerisation!
+[![linuxserver.io](https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/linuxserver_medium.png)][linuxserverurl]
+
+The [LinuxServer.io][linuxserverurl] team brings you another container release featuring easy user mapping and community support. Find us for support at:
+* [forum.linuxserver.io][forumurl]
+* [IRC][ircurl] on freenode at `#linuxserver.io`
+* [Podcast][podcasturl] covers everything to do with getting the most from your Linux Server plus a focus on all things Docker and containerisation!
 
 # linuxserver/deluge
-[![Docker Pulls](https://img.shields.io/docker/pulls/linuxserver/deluge.svg)][hub]
-[![Docker Stars](https://img.shields.io/docker/stars/linuxserver/deluge.svg)][hub]
-[![Build Status](http://jenkins.linuxserver.io:8080/buildStatus/icon?job=Dockers/LinuxServer.io/linuxserver-deluge)](http://jenkins.linuxserver.io:8080/job/Dockers/job/LinuxServer.io/job/linuxserver-deluge/)
+[![](https://images.microbadger.com/badges/version/linuxserver/deluge.svg)](https://microbadger.com/images/linuxserver/deluge "Get your own version badge on microbadger.com")[![](https://images.microbadger.com/badges/image/linuxserver/deluge.svg)](http://microbadger.com/images/linuxserver/deluge "Get your own image badge on microbadger.com")[![Docker Pulls](https://img.shields.io/docker/pulls/linuxserver/deluge.svg)][hub][![Docker Stars](https://img.shields.io/docker/stars/linuxserver/deluge.svg)][hub][![Build Status](http://jenkins.linuxserver.io:8080/buildStatus/icon?job=Dockers/LinuxServer.io/linuxserver-deluge)](http://jenkins.linuxserver.io:8080/job/Dockers/job/LinuxServer.io/job/linuxserver-deluge/)
 [hub]: https://hub.docker.com/r/linuxserver/deluge/
 
 [deluge](http://deluge-torrent.org/) Deluge is a lightweight, Free Software, cross-platform BitTorrent client.
@@ -34,7 +37,13 @@ docker create \
   linuxserver/deluge
 ```
 
-**Parameters**
+## Parameters
+
+`The parameters are split into two halves, separated by a colon, the left hand side representing the host and the right the container side. 
+For example with a port -p external:internal - what this shows is the port mapping from internal to external of the container.
+So -p 8080:80 would expose port 80 from inside the container to be accessible from the host's IP on port 8080
+http://192.168.x.x:8080 would show you what's running INSIDE the container on port 80.`
+
 
 * `--net=host` - Shares host networking with container, **required**.
 * `-v /config` - deluge configs
@@ -59,14 +68,30 @@ In this instance `PUID=1001` and `PGID=1001`. To find yours use `id user` as bel
 ## Setting up the application 
 
 The admin interface is available at http://<ip>:8112 with a default user/password of admin/deluge.
+
 To change the password (recommended) log in to the web interface and go to Preferences->Interface->Password.
+
+Change the downloads location in the webui in Preferences->Downloads and use /downloads for completed downloads.
 
 ## Info
 
 * Monitor the logs of the container in realtime `docker logs -f deluge`.
 
+* container version number 
+
+`docker inspect -f '{{ index .Config.Labels "build_version" }}' deluge`
+
+* image version number
+
+`docker inspect -f '{{ index .Config.Labels "build_version" }}' linuxserver/deluge`
+
 ## Versions
 
++ **13.10.16:** Switch to libressl as openssl deprecated from alpine linux and deluge dependency
+no longer installs.
++ **30.09.16:** Fix umask.
++ **09.09.16:** Add layer badges to README.
++ **30.08.16:** Use pip packages for some critical dependencies.
 + **28.08.16:** Add badges to README.
 + **15.08.16:** Rebase to alpine linux.
 + **09.11.15:** Add unrar and unzip
