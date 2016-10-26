@@ -2,14 +2,14 @@ FROM lsiobase/alpine
 MAINTAINER Gonzalo Peci <davyjones@linuxserver.io>, sparklyballs
 
 # environment variables
-ENV PYTHON_EGG_CACHE="/config/plugins/.python-eggs"
+ENV CONFIG="/config"
+ENV PYTHON_EGG_CACHE="${CONFIG}/plugins/.python-eggs"
 
 # set version label
 ARG BUILD_DATE
 ARG VERSION
 LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 
-ENV CONFIG="/config"
 #make life easy for yourself
 ENV TERM=xterm-color
 RUN echo $'#!/bin/bash\nls -alF --color=auto --group-directories-first --time-style=+"%H:%M %d/%m/%Y" --block-size="\'1" $@' > /usr/bin/ll
